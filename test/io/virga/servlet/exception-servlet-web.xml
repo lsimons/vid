@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2014 The VID Authors. Licensed under CC by-nc-nd 4.0. -->
+<!--suppress CheckTagEmptyBody -->
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+		  http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+  <servlet>
+    <servlet-name>error</servlet-name>
+    <servlet-class>io.virga.servlet.ExceptionServlet</servlet-class>
+    <init-param>
+      <param-name>showStackTraces</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>error</servlet-name>
+    <url-pattern>/error</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>exceptionGenerator</servlet-name>
+    <servlet-class>io.virga.servlet.ExceptionGeneratorServlet</servlet-class>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>exceptionGenerator</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>lateExceptionGenerator</servlet-name>
+    <servlet-class>io.virga.servlet.LateExceptionGeneratorServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>lateExceptionGenerator</servlet-name>
+    <url-pattern>/late</url-pattern>
+  </servlet-mapping>
+</web-app>

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="servlet-api-7.0.50">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/servlet-api-7.0.50.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="http://docs.oracle.com/javaee/7/api/" />
+    </JAVADOC>
+    <SOURCES />
+  </library>
+</component>

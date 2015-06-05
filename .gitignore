@@ -1,0 +1,6 @@
+out/
+web/min.js
+web/min.js.map
+.idea/workspace.xml
+watcher/barbarywatchservice/.idea/workspace.xml
+tomcat.64646/

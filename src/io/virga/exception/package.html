@@ -1,0 +1,63 @@
+<html>
+<body>
+<p>
+  Common http error model.
+</p>
+
+<p>
+  This package provides {@link io.virga.exception.HttpException} with various specific subclasses
+  that provide a simple object-oriented abstraction of common http error status codes. Because
+  <code>HttpException</code> extends IOException, it can be encountered in any place where IOException can be
+  encountered.
+</p>
+
+<p>
+  To create a new <code>HttpException</code>, consider using the
+  {@link io.virga.exception.HttpException#fromCode(int, String)} convenience method. It will provide
+  exceptions of the appropriate return type.
+</p>
+
+<p>
+  To catch a <code>HttpException</code>, consider which errors are recoverable for your application, and filter for
+  those where you would filter for IOException. Generally, un-recoverable errors can be safely treated with more
+  generic IOException handling code. A common example is to catch and retry 503s. Assuming a method:
+</p>
+<pre>
+    public interface MyApi {
+        /**
+         * Sample api call.
+         *
+         * @return some result
+         * @throws HttpException if a http error occurs
+         * @throws IOException if any other IO error occurs
+         */
+        String myApiCall throws IOException;
+    }
+</pre>
+<p>
+  You might write something like:
+</p>
+<pre>
+    String result = null;
+    try {
+        result = myApi.myApiCall();
+    } catch(ServiceUnavailable e) {
+        try {
+            Thread.sleep(5000);
+            result = myApiCall();
+        } catch(IOException e2) {
+            log.error("myApiCall() failed", e);
+        } catch(InterruptedException e2) {
+            log.error("myApiCall() failed", e);
+        }
+    } catch(IOException e) {
+        log.error("myApiCall() failed", e);
+    }
+    if (result != null) {
+        /* ...continue as normal... */
+    } else {
+        /* ...fallback behavior for overloaded server... */
+    }
+</pre>
+</body>
+</html>

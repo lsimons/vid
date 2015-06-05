@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/watcher/barbarywatchservice/WatchService.iml" filepath="$PROJECT_DIR$/watcher/barbarywatchservice/WatchService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vid.iml" filepath="$PROJECT_DIR$/vid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/watcher/watcher.iml" filepath="$PROJECT_DIR$/watcher/watcher.iml" />
+    </modules>
+  </component>
+</project>
+

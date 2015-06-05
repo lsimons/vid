@@ -1,0 +1,7 @@
+VIRGA ID SERVER RELEASE NOTES
+=============================
+
+Version 0.1.0 - Released January 26, 2014
+------------------------------------------
+* this version contains no functionality
+* build and packaging setup

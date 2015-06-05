@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="tomcat-embed">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/tomcat-embed-core-7.0.50.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/tomcat-embed-jasper-7.0.50.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/tomcat-embed-logging-juli-7.0.50.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/ecj-4.3.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

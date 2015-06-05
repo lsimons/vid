@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2014 The VID Authors. Licensed under CC by-nc-nd 4.0. -->
+<!--suppress CheckTagEmptyBody -->
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+		  http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+  <filter>
+    <filter-name>ConfigFilter</filter-name>
+    <filter-class>io.virga.servlet.ConfigFilter</filter-class>
+    <!--<init-param>
+      <param-name>vid.properties.file</param-name>
+      <param-value>/etc/vid/vid.properties</param-value>
+    </init-param>
+    <init-param>
+      <param-name>vid.debug</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <param-name>vid.trace</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <param-name>vid.version</param-name>
+      <param-value>0.0.1</param-value>
+    </init-param>-->
+  </filter>
+  <filter-mapping>
+    <filter-name>ConfigFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <filter>
+    <filter-name>GAE8415Filter</filter-name>
+    <filter-class>io.virga.servlet.GAE8415DateFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>GAE8415Filter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <servlet>
+    <servlet-name>error</servlet-name>
+    <servlet-class>io.virga.servlet.ExceptionServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>error</servlet-name>
+    <url-pattern>/error</url-pattern>
+  </servlet-mapping>
+  <error-page>
+    <location>/error</location>
+  </error-page>
+
+  <servlet>
+    <servlet-name>root</servlet-name>
+    <servlet-class>io.virga.vid.servlet.RootServlet</servlet-class>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>root</servlet-name>
+    <!--
+    servlet spec 3.0 section 12.2:
+        ... the empty string ("") is a special URL pattern that exactly maps to the application's context root ...
+    GAE does not support this.
+      So, change the url-pattern to "/" for GAE support, like so:
+        <url-pattern>/</url-pattern>
+    We don't want to do that by default, because if we do that, jetty 9+ will not serve static files.
+    -->
+    <!--suppress WebProperties -->
+    <url-pattern></url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>version</servlet-name>
+    <servlet-class>io.virga.vid.servlet.VersionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>version</servlet-name>
+    <url-pattern>/version</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>about</servlet-name>
+    <jsp-file>/WEB-INF/about.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>about</servlet-name>
+    <url-pattern>/about</url-pattern>
+  </servlet-mapping>
+
+  <!--<servlet>
+    <servlet-name>notFound</servlet-name>
+    <servlet-class>io.virga.servlet.NotFoundServlet</servlet-class>
+    <load-on-startup>3</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>notFound</servlet-name>
+    <url-pattern>/*</url-pattern>
+  </servlet-mapping>-->
+</web-app>

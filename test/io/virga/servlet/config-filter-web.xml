@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2014 The VID Authors. Licensed under CC by-nc-nd 4.0. -->
+<!--suppress CheckTagEmptyBody -->
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+		  http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+  <filter>
+    <filter-name>ConfigFilter</filter-name>
+    <filter-class>io.virga.servlet.ConfigFilter</filter-class>
+    <init-param>
+      <param-name>vid.version</param-name>
+      <param-value>UNITTEST1</param-value>
+    </init-param>
+  </filter>
+
+  <servlet>
+    <servlet-name>version</servlet-name>
+    <servlet-class>io.virga.vid.servlet.VersionServlet</servlet-class>
+  </servlet>
+  <filter-mapping>
+    <filter-name>ConfigFilter</filter-name>
+    <servlet-name>version</servlet-name>
+  </filter-mapping>
+  <servlet-mapping>
+    <servlet-name>version</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+</web-app>

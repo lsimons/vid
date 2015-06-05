@@ -1,0 +1,37 @@
+<?xml version="1.0"  encoding="UTF-8"?>
+<!-- Copyright 2014 The VID Authors. Licensed under CC by-nc-nd 4.0. -->
+<!DOCTYPE Configure PUBLIC
+    "-//Mort Bay Consulting//DTD Configure//EN"
+    "http://www.eclipse.org/jetty/configure_9_0.dtd">
+
+<!--
+  Configure Jetty request log explicitly to avoid warning
+-->
+
+<Configure id="Server" class="org.eclipse.jetty.server.Server">
+  <Set name="handler">
+    <New id="Handlers" class="org.eclipse.jetty.server.handler.HandlerCollection">
+      <Set name="handlers">
+        <Array type="org.eclipse.jetty.server.Handler">
+          <Item>
+            <New id="Contexts" class="org.eclipse.jetty.server.handler.ContextHandlerCollection"/>
+          </Item>
+          <Item>
+            <New id="DefaultHandler" class="org.eclipse.jetty.server.handler.DefaultHandler"/>
+          </Item>
+          <Item>
+            <New id="RequestLog" class="org.eclipse.jetty.server.handler.RequestLogHandler"/>
+          </Item>
+        </Array>
+      </Set>
+    </New>
+  </Set>
+  <Ref id="RequestLog">
+    <Set name="requestLog">
+      <New id="RequestLogImpl" class="org.eclipse.jetty.server.NCSARequestLog">
+        <!-- stderr <Arg><SystemProperty name="jetty.logs" default="./logs"/>/yyyy_mm_dd.request.log</Arg>-->
+        <Set name="LogTimeZone">GMT</Set>
+      </New>
+    </Set>
+  </Ref>
+</Configure>

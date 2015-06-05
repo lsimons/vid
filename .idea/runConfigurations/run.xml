@@ -1,0 +1,17 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="run" type="BashConfigurationType" factoryName="Bash">
+    <option name="INTERPRETER_OPTIONS" value="" />
+    <option name="INTERPRETER_PATH" value="/bin/bash" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+    <option name="PARENT_ENVS" value="true" />
+    <option name="SCRIPT_NAME" value="$PROJECT_DIR$/build.sh" />
+    <option name="PARAMETERS" value="run" />
+    <module name="" />
+    <envs />
+    <RunnerSettings RunnerId="Run" />
+    <ConfigurationWrapper RunnerId="Run" />
+    <method>
+      <option name="Make" enabled="false" />
+    </method>
+  </configuration>
+</component>

@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<!-- Copyright 2014 The VID Authors. Licensed under CC by-nc-nd 4.0. -->
+<suite name="vid-pre-checkin-tests" verbose="1" parallel="classes">
+  <test name="checkin">
+    <groups>
+      <run>
+        <include name="checkin"/>
+        <exclude name="broken"/>
+      </run>
+    </groups>
+    <packages>
+      <package name="io.virga.*"/>
+    </packages>
+  </test>
+</suite>

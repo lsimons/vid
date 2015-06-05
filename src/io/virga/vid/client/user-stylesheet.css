@@ -1,0 +1,7 @@
+body {
+  overflow-x: hidden !important;
+  overflow-y: hidden !important;
+  
+  font-family: arial, sans-serif;
+  font-size: 12pt;
+}
