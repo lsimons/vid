@@ -71,7 +71,7 @@ fi
 read version < "${basedir}/VERSION" || : echo ignored
 cmd="${1:-build}"
 
-commands="help clean js-compile compile test integration-test war javadoc dist build run"
+commands="help clean js-compile compile test integration-test war javadoc dist build run client"
 commands="$commands js-watch compile-watch test-watch integration-test-watch war-watch run-watch"
 
 usage() {
@@ -122,7 +122,7 @@ echo "// Copyright 2014 The VID Authors. Licensed under CC by-nc-nd 4.0." > "${j
 cat "${jsTarget}.tmp" >> "${jsTarget}"
 rm -f ${verbose} "${jsTarget}.tmp"
 echo "//@ sourceMappingURL=${jsTarget}.map" >> "${jsTarget}"
-    
+
 [[ "${cmd}" == "js-compile" ]] && echo ${GREEN} "...done" ${RESET} && exit 0
 
 echo ${BLUE} "compiling..." ${RESET}
@@ -150,7 +150,7 @@ rsync -a ${verbose} --exclude="*.java" ./ "${classDir}/"
 
 [[ "${cmd}" == "compile" ]] && echo ${GREEN} "...done" ${RESET} && exit 0
 
-if [[ "${cmd}" == "run" ]]; then
+if [[ "${cmd}" == "run" || "${cmd}" == "client" ]]; then
     echo ${BLUE} "skipping tests..." ${RESET}
 else
     echo ${BLUE} "compiling tests..." ${RESET}
@@ -158,7 +158,7 @@ else
     mkdir -p ${verbose} "${testClassDir}"
     cd "${testDir}"
     TCP="${CP}"
-    
+
     set +e
     javac ${javacArgs} -source "${javaVersion}" -target "${javaVersion}" \
             -d "${testClassDir}" \
@@ -169,12 +169,12 @@ else
         exit 1
     fi
     set -e
-    
+
     rsync -a ${verbose} --exclude="*.java" ./ "${testClassDir}/"
-    
-    
+
+
     echo ${BLUE} "testing..." ${RESET}
-    
+
     cd "${distDir}"
     testType="checkin"
     [[ "${cmd}" == "test" \
@@ -182,7 +182,7 @@ else
         || "${cmd}" == "build" ]] && testType="functional"
     [[ "${cmd}" == "integration-test" ]] && testType="integration"
     testNgXml="${testDir}/testng-${testType}.xml"
-    
+
     rm -rf ${verbose} "${testRptDir}"
     set +e
     java -ea -cp "${testClassDir}:${classDir}:${TCP}" \
@@ -221,7 +221,17 @@ jar ${verbose}cf "${distDir}/${project}-${version}.war" *
 
 [[ "${cmd}" == "war" ]] && echo ${GREEN} "...done" ${RESET} && exit 0
 
-if [[ "${cmd}" == "run" ]]; then
+if [[ "${cmd}" == "client" ]]; then
+    echo ${BLUE} "starting the VID GUI..." ${RESET}
+    cd "${basedir}"
+    java -ea -cp "${classDir}:${CP}" \
+            io.virga.vid.client.VidClient &
+    javaPid=$!
+    trap "kill -KILL ${javaPid}" SIGKILL SIGTERM SIGINT
+    wait
+    echo ${GREEN} "...done" ${RESET}
+    exit 0
+elif [[ "${cmd}" == "run" ]]; then
     echo ${BLUE} "running jetty on port 8080..." ${RESET}
     java ${jettyJavaArgs} \
         -jar "${jettyDir}/jetty-runner-${jettyVersion}.jar" \
